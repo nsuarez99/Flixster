@@ -3,9 +3,12 @@ package com.example.flixster;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Configuration;
+import android.media.Image;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
@@ -32,7 +35,8 @@ public class MovieInfoActivity extends AppCompatActivity {
     ImageView ivInfoPoster;
     RatingBar ratingBar;
     TextView tvPopularity;
-    VideoView videoView;
+    ImageView ivPlay;
+    Intent intent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,7 +48,7 @@ public class MovieInfoActivity extends AppCompatActivity {
         ivInfoPoster = findViewById(R.id.ivInfoPoster);
         ratingBar = findViewById(R.id.ratingBar);
         tvPopularity = findViewById(R.id.tvPopularity);
-        videoView = findViewById(R.id.videoInfo);
+        ivPlay = findViewById(R.id.ivPlay);
 
         //set toolbar and movie title and overview
         String title = getIntent().getStringExtra("title");
@@ -67,8 +71,13 @@ public class MovieInfoActivity extends AppCompatActivity {
 
         //set video
         String idd = getIntent().getStringExtra("idd");
-        setVideoView(idd);
+        intent = new Intent(MovieInfoActivity.this, MovieTrailerActivity.class);
+        getYoutubeUrl(idd);
 
+    }
+
+    public void launchTrailer(View view){
+        startActivity(intent);
     }
 
     protected void setPosterImage(String portrait, String landscape){
@@ -87,7 +96,7 @@ public class MovieInfoActivity extends AppCompatActivity {
         Glide.with(MovieInfoActivity.this).load(urlImage).transform(new RoundedCornersTransformation(radius, margin)).placeholder(placeholder).into(ivInfoPoster);
     }
 
-    protected void setVideoView(String idd){
+    protected void getYoutubeUrl(String idd){
         final String apiURL = String.format("https://api.themoviedb.org/3/movie/%s/videos?api_key=a07e22bc18f5cb106bfe4cc1f83ad8ed", idd);
         AsyncHttpClient client = new AsyncHttpClient();
         client.get(apiURL, new JsonHttpResponseHandler() {
@@ -97,19 +106,18 @@ public class MovieInfoActivity extends AppCompatActivity {
                 JSONObject jsonObject = json.jsonObject;
                 try{
                     JSONArray results = jsonObject.getJSONArray("results");
-                    String youtubeURL = "https://www.youtube.com/watch?v=" + results.getJSONObject(0).getString("key");
-                    Log.i(TAG, "URL: " + youtubeURL);
-                    videoView.setVideoPath(youtubeURL);
-                    videoView.start();
+                    intent.putExtra("key", results.getJSONObject(0).getString("key"));
+
                 }
                 catch (JSONException e){
-                    Log.e(TAG, "Hit json exception " + e);
+                    intent.putExtra("key", "");
                 }
             }
 
             @Override
             public void onFailure(int statusCode, Headers headers, String response, Throwable throwable) {
                 Log.d(TAG, "onFailure");
+                intent.putExtra("key", "");
             }
         });
     }

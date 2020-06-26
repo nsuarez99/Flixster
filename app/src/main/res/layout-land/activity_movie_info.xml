@@ -5,12 +5,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/Black"
     tools:context=".MovieInfoActivity">
 
     <ImageView
         android:id="@+id/ivInfoPoster"
-        android:layout_width="350dp"
-        android:layout_height="200dp"
+        android:layout_width="259dp"
+        android:layout_height="152dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:scaleType="fitXY"
@@ -28,6 +29,7 @@
         android:textSize="30sp"
         app:layout_constraintStart_toEndOf="@+id/ivInfoPoster"
         tools:layout_editor_absoluteY="0dp"
+        android:textColor="@color/White"
         tools:text="Fast Furious Presents: Hobbs Shaw" />
 
     <TextView
@@ -37,27 +39,16 @@
         android:layout_below="@+id/ivInfoPoster"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginTop="4dp"
+        android:layout_marginTop="17dp"
         android:layout_marginEnd="4dp"
         android:layout_marginBottom="3dp"
         android:ellipsize="end"
-        android:maxLines="15"
+        android:maxLines="8"
+        android:textColor="@color/White"
+        android:textSize="15dp"
         app:layout_constraintStart_toStartOf="parent"
         tools:layout_editor_absoluteY="180dp"
         tools:text="After he and his wife are murdered, marine Ray Garrison is resurrected by a team of scientists. Enhanced with nanotechnology, he becomes a superhuman, biotech killing machine—'Bloodshot'. As Ray first trains with fellow super-soldiers, he cannot recall anything from his former life. But when his memories flood back and he remembers the man that killed both him and his wife, he breaks out of the facility to get revenge, only to discover that there's more to the conspiracy than he thought." />
-
-    <VideoView
-        android:id="@+id/videoInfo"
-        android:layout_width="294dp"
-        android:layout_height="204dp"
-        android:layout_below="@+id/ivInfoPoster"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="2dp"
-        android:layout_marginTop="4dp"
-        android:layout_marginEnd="25dp"
-        android:layout_marginBottom="3dp"
-        android:layout_toStartOf="@+id/tvInfoOverview" />
 
     <RatingBar
         android:id="@+id/ratingBar"
@@ -65,12 +56,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:layout_marginStart="95dp"
-        android:layout_marginTop="78dp"
+        android:layout_marginStart="118dp"
+        android:layout_marginTop="47dp"
         android:layout_toEndOf="@+id/ivInfoPoster"
         android:numStars="5"
-        android:progressBackgroundTint="@color/LightGrey"
         android:progressTint="@color/Yellow"
+        android:progressBackgroundTint="@color/LightGrey"
         android:stepSize="0.5" />
 
     <TextView
@@ -79,10 +70,47 @@
         android:layout_height="45dp"
         android:layout_alignBottom="@+id/ivInfoPoster"
         android:layout_alignParentEnd="true"
-        android:layout_marginEnd="1dp"
-        android:layout_marginBottom="10dp"
+        android:layout_marginStart="45dp"
+        android:layout_marginEnd="88dp"
+        android:layout_marginBottom="8dp"
+        android:layout_toEndOf="@+id/ivInfoPoster"
         android:textAlignment="center"
+        android:textColor="@color/White"
         android:textSize="30sp"
         tools:text="Popularity: 123.4" />
+
+    <ImageView
+        android:id="@+id/ivTrailerBackdrop"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ivInfoPoster"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="17dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="5dp"
+        android:layout_toStartOf="@+id/tvInfoOverview"
+        android:adjustViewBounds="true"
+        android:onClick="launchTrailer"
+        android:scaleType="fitXY"
+        app:srcCompat="@drawable/backdrop_placeholder" />
+
+    <ImageView
+        android:id="@+id/ivPlay"
+        android:layout_width="111dp"
+        android:layout_height="94dp"
+        android:layout_alignStart="@+id/ivTrailerBackdrop"
+        android:layout_alignTop="@+id/ivTrailerBackdrop"
+        android:layout_alignEnd="@+id/ivTrailerBackdrop"
+        android:layout_alignBottom="@+id/ivTrailerBackdrop"
+        android:layout_marginStart="122dp"
+        android:layout_marginTop="41dp"
+        android:layout_marginEnd="121dp"
+        android:layout_marginBottom="41dp"
+        android:adjustViewBounds="true"
+        android:alpha=".75"
+        android:onClick="launchTrailer"
+        android:scaleType="center"
+        app:srcCompat="@android:drawable/ic_media_play" />
 
 </RelativeLayout>
