@@ -4,8 +4,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.util.Log;
+import android.view.View;
 
 import com.codepath.asynchttpclient.AsyncHttpClient;
 import com.codepath.asynchttpclient.callback.JsonHttpResponseHandler;
@@ -32,11 +35,30 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        //Create onClick interface mmethods
+        MovieAdapter.OnClickListener clickListener = new MovieAdapter.OnClickListener() {
+            @Override
+            public void onItemClicked(int position) {
+                Movie movie = movies.get(position);
+                Intent i = new Intent(MainActivity.this, MovieInfoActivity.class);
+                i.putExtra("landscape", movie.getBackdropPath());
+                i.putExtra("portrait", movie.getPosterPath());
+                i.putExtra("title", movie.getTitle());
+                i.putExtra("overview", movie.getOverview());
+                i.putExtra("popularity", movie.getPopularity().toString());
+                i.putExtra("rating", movie.getRating());
+                i.putExtra("idd", Integer.toString(movie.getIdd()));
+                startActivity(i);
+            }
+        };
+
+
+
         movies = new ArrayList<>();
         RecyclerView rvMovies = findViewById(R.id.rvMovies);
 
         //Create adapter
-        final MovieAdapter movieAdapter = new MovieAdapter(this, movies);
+        final MovieAdapter movieAdapter = new MovieAdapter(this, movies, clickListener);
 
         //Set adapter on the recycler view
         rvMovies.setAdapter(movieAdapter);

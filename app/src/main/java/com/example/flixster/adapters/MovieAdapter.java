@@ -21,12 +21,18 @@ import java.util.List;
 
 public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> {
 
+    public interface OnClickListener{
+        void onItemClicked(int position);
+    }
+
     Context context;
     List<Movie> movies;
+    OnClickListener listener;
 
-    public MovieAdapter(Context context, List<Movie> movies) {
+    public MovieAdapter(Context context, List<Movie> movies, OnClickListener clickListener) {
         this.context = context;
         this.movies = movies;
+        listener = clickListener;
     }
 
     //Usually involves inflating a layout from the XML and returning the holder
@@ -81,6 +87,29 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
                 placeholder = R.drawable.portrait_placeholder;
             }
             Glide.with(context).load(urlImage).placeholder(placeholder).into(ivPoster);
+
+            tvTitle.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    //listener is binded to the view (this is the interface we created)
+                    listener.onItemClicked(getAdapterPosition());
+                }
+            });
+
+            tvOverview.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    listener.onItemClicked(getAdapterPosition());
+                }
+            });
+
+            ivPoster.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    listener.onItemClicked(getAdapterPosition());
+                }
+            });
+
         }
     }
 }
