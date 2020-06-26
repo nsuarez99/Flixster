@@ -21,6 +21,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.w3c.dom.Text;
 
+import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
 import okhttp3.Headers;
 
 public class MovieInfoActivity extends AppCompatActivity {
@@ -59,17 +60,14 @@ public class MovieInfoActivity extends AppCompatActivity {
 
         //set rating and popularity
         String popularity = getIntent().getStringExtra("popularity");
-        tvPopularity.setText(popularity);
+        tvPopularity.setText("Popularity: " + popularity);
         float rating = (float) getIntent().getDoubleExtra("rating", 0);
         ratingBar.setRating(rating);
+        Log.d(TAG, popularity + " " + rating);
 
         //set video
         String idd = getIntent().getStringExtra("idd");
         setVideoView(idd);
-
-
-
-
 
     }
 
@@ -81,10 +79,12 @@ public class MovieInfoActivity extends AppCompatActivity {
             placeholder = R.drawable.backdrop_placeholder;
         }
         else{
-            urlImage = landscape;
+            urlImage = portrait;
             placeholder = R.drawable.portrait_placeholder;
         }
-        Glide.with(MovieInfoActivity.this).load(urlImage).placeholder(placeholder).into(ivInfoPoster);
+        int radius = 20; // corner radius, higher value = more rounded
+        int margin = 5; // crop margin, set to 0 for corners with no crop
+        Glide.with(MovieInfoActivity.this).load(urlImage).transform(new RoundedCornersTransformation(radius, margin)).placeholder(placeholder).into(ivInfoPoster);
     }
 
     protected void setVideoView(String idd){

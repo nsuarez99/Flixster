@@ -19,6 +19,8 @@ import com.example.flixster.models.Movie;
 
 import java.util.List;
 
+import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
+
 public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> {
 
     public interface OnClickListener{
@@ -86,7 +88,9 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
                 urlImage = movie.getPosterPath();
                 placeholder = R.drawable.portrait_placeholder;
             }
-            Glide.with(context).load(urlImage).placeholder(placeholder).into(ivPoster);
+            int radius = 20; // corner radius, higher value = more rounded
+            int margin = 5; // crop margin, set to 0 for corners with no crop
+            Glide.with(context).load(urlImage).transform(new RoundedCornersTransformation(radius, margin)).placeholder(placeholder).into(ivPoster);
 
             tvTitle.setOnClickListener(new View.OnClickListener() {
                 @Override

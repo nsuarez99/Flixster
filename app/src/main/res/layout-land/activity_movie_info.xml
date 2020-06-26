@@ -9,20 +9,20 @@
 
     <TextView
         android:id="@+id/tvPopularity"
-        android:layout_width="249dp"
-        android:layout_height="46dp"
+        android:layout_width="154dp"
+        android:layout_height="122dp"
         android:layout_below="@+id/tvInfoTitle"
         android:layout_alignBottom="@+id/ivInfoPoster"
         android:layout_alignParentEnd="true"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="2dp"
-        android:layout_marginBottom="22dp"
-        android:text="TextView" />
+        android:layout_marginBottom="18dp"
+        tools:text="123.4" />
 
     <ImageView
         android:id="@+id/ivInfoPoster"
-        android:layout_width="120dp"
-        android:layout_height="wrap_content"
+        android:layout_width="350dp"
+        android:layout_height="200dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         tools:srcCompat="@tools:sample/avatars" />
@@ -43,12 +43,14 @@
 
     <TextView
         android:id="@+id/tvInfoOverview"
-        android:layout_width="244dp"
-        android:layout_height="match_parent"
+        android:layout_width="406dp"
+        android:layout_height="204dp"
         android:layout_below="@+id/ivInfoPoster"
-        android:layout_alignParentStart="true"
-        android:layout_marginStart="2dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
         android:layout_marginTop="4dp"
+        android:layout_marginEnd="4dp"
+        android:layout_marginBottom="3dp"
         android:ellipsize="end"
         android:maxLines="15"
         app:layout_constraintStart_toStartOf="parent"
@@ -75,15 +77,15 @@
 
     <VideoView
         android:id="@+id/videoInfo"
-        android:layout_width="436dp"
-        android:layout_height="264dp"
+        android:layout_width="294dp"
+        android:layout_height="204dp"
         android:layout_below="@+id/ivInfoPoster"
-        android:layout_alignParentEnd="true"
+        android:layout_alignParentStart="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginStart="5dp"
-        android:layout_marginTop="3dp"
-        android:layout_marginEnd="0dp"
-        android:layout_marginBottom="0dp"
-        android:layout_toEndOf="@+id/tvInfoOverview" />
+        android:layout_marginStart="2dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="25dp"
+        android:layout_marginBottom="3dp"
+        android:layout_toStartOf="@+id/tvInfoOverview" />
 
 </RelativeLayout>
