@@ -102,7 +102,7 @@
         android:adjustViewBounds="true"
         android:scaleType="fitXY"
         android:onClick="launchTrailer"
-        app:srcCompat="@drawable/backdrop_placeholder" />
+        tools:srcCompat="@tools:sample/avatars"/>
 
     <ImageView
         android:id="@+id/ivPlay"

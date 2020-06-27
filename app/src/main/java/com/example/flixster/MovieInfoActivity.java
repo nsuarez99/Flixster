@@ -37,13 +37,13 @@ public class MovieInfoActivity extends AppCompatActivity {
     TextView tvPopularity;
     ImageView ivPlay;
     Intent intent;
+    ImageView ivTrailerBackdrop;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_movie_info);
 
-        tvInfoTitle = findViewById(R.id.tvInfoTitle);
         tvInfoOverview = findViewById(R.id.tvInfoOverview);
         ivInfoPoster = findViewById(R.id.ivInfoPoster);
         ratingBar = findViewById(R.id.ratingBar);
@@ -53,7 +53,10 @@ public class MovieInfoActivity extends AppCompatActivity {
         //set toolbar and movie title and overview
         String title = getIntent().getStringExtra("title");
         String overview = getIntent().getStringExtra("overview");
-        tvInfoTitle.setText(title);
+        if (MovieInfoActivity.this.getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT){
+            tvInfoTitle = findViewById(R.id.tvInfoTitle);
+            tvInfoTitle.setText(title);
+        }
         tvInfoOverview.setText(overview);
         getSupportActionBar().setTitle(title);
 
@@ -83,17 +86,14 @@ public class MovieInfoActivity extends AppCompatActivity {
     protected void setPosterImage(String portrait, String landscape){
         String urlImage;
         int placeholder;
-        if (MovieInfoActivity.this.getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE){
-            urlImage = landscape;
-            placeholder = R.drawable.backdrop_placeholder;
-        }
-        else{
-            urlImage = portrait;
-            placeholder = R.drawable.portrait_placeholder;
-        }
         int radius = 20; // corner radius, higher value = more rounded
         int margin = 5; // crop margin, set to 0 for corners with no crop
-        Glide.with(MovieInfoActivity.this).load(urlImage).transform(new RoundedCornersTransformation(radius, margin)).placeholder(placeholder).into(ivInfoPoster);
+
+        if (MovieInfoActivity.this.getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT){
+            ivTrailerBackdrop = findViewById(R.id.ivTrailerBackdrop);
+            Glide.with(MovieInfoActivity.this).load(landscape).transform(new RoundedCornersTransformation(radius, margin)).placeholder(R.drawable.backdrop_placeholder).into(ivTrailerBackdrop);
+        }
+        Glide.with(MovieInfoActivity.this).load(portrait).transform(new RoundedCornersTransformation(radius, margin)).placeholder(R.drawable.portrait_placeholder).into(ivInfoPoster);
     }
 
     protected void getYoutubeUrl(String idd){
